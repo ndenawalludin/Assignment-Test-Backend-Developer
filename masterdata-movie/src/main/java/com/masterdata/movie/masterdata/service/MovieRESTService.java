@@ -68,6 +68,10 @@ public class MovieRESTService {
         
         try {
             if (isUpdate) {
+                
+                //if id not equals with payload
+                if (id != movieDTO.getId()) return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("0", "Failed to update because ID param not equal with id in payload"));
+                
                 movie = movieRepository.findOneById(id);
                 if (movie == null) {
                     return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("0", "Failed to update because ID not found"));
@@ -128,7 +132,7 @@ public class MovieRESTService {
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("0", "data not found"));
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResponseDTO("0", "Internal Server Error"));
         }
         
     }
