@@ -15,6 +15,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
-    List<Movie> findAll();
+    List<Movie> findAllByOrderByIdAsc();
     Movie findOneById(Integer id);
 }
