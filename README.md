@@ -1,6 +1,6 @@
 # AssignmentTest-BackendDeveloper
 Masterdata-Movie
-
+Restfull Movie :
 1. menggunakan java 1.8
 2. terdapat package domain untuk Movie entity
 3. terdapat package controller untuk MovieRESTController
