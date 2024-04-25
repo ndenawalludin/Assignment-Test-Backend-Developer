@@ -35,10 +35,10 @@ public class MovieRESTService {
                 return ResponseEntity.status(HttpStatus.OK).body(movies);
             }
             
-            return ResponseEntity.status(HttpStatus.OK).body(null);
+            return ResponseEntity.status(HttpStatus.OK).body(new ArrayList<>());
         } catch (Exception e){
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ArrayList<>());
         }
         
     }
@@ -50,11 +50,10 @@ public class MovieRESTService {
             if (movie != null) {
                 return ResponseEntity.status(HttpStatus.OK).body(movie);
             }
-            
-            return ResponseEntity.status(HttpStatus.OK).body(null);
+            return ResponseEntity.status(HttpStatus.OK).body(new Movie());
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new Movie());
         }
         
     }
@@ -66,15 +65,12 @@ public class MovieRESTService {
      */
     public ResponseEntity<ResponseDTO> addOrUpdateMovie(MovieDTO movieDTO, Boolean isUpdate, Integer id) {
         Movie movie = new Movie();
-        ResponseDTO responseDTO = new ResponseDTO();
+        
         try {
             if (isUpdate) {
                 movie = movieRepository.findOneById(id);
                 if (movie == null) {
-                    responseDTO.setCode("0");
-                    responseDTO.setMessage("Failed to update because ID not found");
-                    
-                    return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+                    return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("0", "Failed to update because ID not found"));
                 }
                 
                 movie.setId(movieDTO.getId());
@@ -86,19 +82,17 @@ public class MovieRESTService {
                 movie.setUpdated_at(movieDTO.getUpdated_at());
                 
                 movieRepository.save(movie);
-                responseDTO.setCode("1");
-                responseDTO.setMessage("Updated successfully");
                 
-                return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+                return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("1", "Updated successfully"));
             } else {
                 if (movieDTO.getId() != null) {
                     movie = movieRepository.findOneById(movieDTO.getId());
                     
                     if (movie != null ) {
-                        responseDTO.setCode("0");
-                        responseDTO.setMessage("Failed to save data because data with that ID already exists");
-                        return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+                        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("0", "Failed to save data because data with that ID already exists"));
                     }
+                    
+                    movie = new Movie();
                 }
                 
                 movie.setId(movieDTO.getId());
@@ -110,37 +104,28 @@ public class MovieRESTService {
                 movie.setUpdated_at(movieDTO.getUpdated_at());
                 
                 movieRepository.save(movie);
-                responseDTO.setCode("1");
-                responseDTO.setMessage("saved successfully");
                 
-                return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+                return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("1", "saved successfully"));
             }
             
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResponseDTO());
         }
         
     }
     
     public ResponseEntity<ResponseDTO> deleteOneMovieByID(Integer Id) {
-        ResponseDTO responseDTO = new ResponseDTO();
         
         try {
             Movie movie = movieRepository.findOneById(Id);
             if (movie != null) {
                 movieRepository.deleteById(Id);
                 
-                responseDTO.setCode("1");
-                responseDTO.setMessage("data has been successfully deleted");
-                
-                return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+                return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("1", "data has been successfully deleted"));
             }
-            
-            responseDTO.setCode("0");
-            responseDTO.setMessage("data not found");
 
-            return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseDTO("0", "data not found"));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
