@@ -1,5 +1,8 @@
-com/masterdata/movie/masterdata/repository/MovieRepository.class
-com/masterdata/movie/masterdata/MasterdataMovieApplication.class
-com/masterdata/movie/masterdata/service/MovieRESTService.class
-com/masterdata/movie/masterdata/domain/Movie.class
-com/masterdata/movie/masterdata/controller/MovieRESTController.class
+com\masterdata\movie\masterdata\controller\MovieRESTController.class
+com\masterdata\movie\masterdata\MasterdataMovieApplication.class
+com\masterdata\movie\masterdata\repository\MovieRepository.class
+com\masterdata\movie\masterdata\DTO\MovieDTO$MovieDTOBuilder.class
+com\masterdata\movie\masterdata\DTO\MovieDTO.class
+com\masterdata\movie\masterdata\domain\Movie.class
+com\masterdata\movie\masterdata\service\MovieRESTService.class
+com\masterdata\movie\masterdata\DTO\ResponseDTO.class

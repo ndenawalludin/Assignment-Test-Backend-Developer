@@ -5,11 +5,13 @@
 package com.masterdata.movie.masterdata.DTO;
 
 import java.util.Date;
+import lombok.Builder;
 
 /**
  *
  * @author nden
  */
+@Builder
 public class MovieDTO {
     private Integer id;
     private String title;
